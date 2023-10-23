@@ -1,20 +1,33 @@
 import styled from "styled-components";
 import { theme } from "../styles/themeStyles";
+import { useEffect, useState } from "react";
 
-const ProgressBar = ({ percentage }: { percentage: number }) => {
+const ProgressBar = ({ percentageArr }: { percentageArr: number[] }) => {
+  const [arrayCounter, setArrayCounter] = useState<number>(0);
+
+  useEffect(() => {
+    const sumWithInitial = percentageArr.reduce(
+      (accumulator: number, currentValue: number) => accumulator + currentValue,
+      0
+    );
+    setArrayCounter(sumWithInitial);
+  }, [percentageArr]);
+
   return (
-    <ProgressBarDiv percentage={percentage}>
+    <ProgressBarDiv percentage={arrayCounter}>
       <progress
         value="55"
         max="100"
         style={{ visibility: "hidden", height: 0, width: 0 }}
       ></progress>
-      {percentage === 0 ? (
+      {percentageArr.length === 0 ? (
         <StartText>START</StartText>
       ) : (
-        <StartText>{percentage}% </StartText>
+        <StartText>{arrayCounter}% </StartText>
       )}
-      <CompletedText> {percentage === 0 ? "⮟" : "COMPLETED"} </CompletedText>
+      <CompletedText>
+        {percentageArr.length === 0 ? "⮟" : "COMPLETED"}
+      </CompletedText>
     </ProgressBarDiv>
   );
 };

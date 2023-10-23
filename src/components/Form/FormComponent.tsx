@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Form1 from "./FormDivs/Form1";
 import Form2 from "./FormDivs/Form2";
 import Form3 from "./FormDivs/Form3";
@@ -18,25 +18,52 @@ interface Props {
 export interface IEnteredData {
   product: string;
   year: number;
+  activeAccount: boolean;
+  occupation: string;
+  dependents: string;
+  struggleInPayment: boolean;
+  filledClaimBefore: boolean;
+  bankruptcySubject: boolean;
+  clientTitle: string;
+  name: string;
+  lastName: string;
+  dateOfBirth: {
+    dayOfBirth: number;
+    mounthOfBirth: number;
+    yearOfBirth: number;
+  };
 }
 
 const FormComponent = ({ setterPercentage }: Props) => {
   const [enteredData, setEnteredData] = useState<IEnteredData>({
     product: "",
     year: 0,
+    activeAccount: false,
+    occupation: "",
+    dependents: "",
+    struggleInPayment: false,
+    filledClaimBefore: false,
+    bankruptcySubject: false,
+    clientTitle: "",
+    name: "",
+    lastName: "",
+    dateOfBirth: {
+      dayOfBirth: 0,
+      mounthOfBirth: 0,
+      yearOfBirth: 0,
+    },
   });
 
+  console.log(enteredData);
   const [formControl, setFormControl] = useState(1);
 
-  useEffect(() => {
-    // percentage handler
-    if (formControl === 1 + 1) {
-      setterPercentage((prev: number) => prev + 10);
-    } else if (formControl === 2 + 1) {
-      setterPercentage((prev: number) => prev + 5);
-    }
-  }, [formControl]);
+  const percentageProgressBarAddHandler = (number: number) => {
+    setterPercentage((prev: number[]) => [...prev, number]);
+  };
 
+  const percentageProgressBarRemoveHandler = () => {
+    setterPercentage((prev: number[]) => prev.slice(0, -1));
+  };
   return (
     <FormStyled method="POST" autoComplete="off">
       {formControl === 1 && (
@@ -44,6 +71,7 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
         />
       )}
       {formControl === 2 && (
@@ -51,6 +79,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 3 && (
@@ -58,6 +88,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 4 && (
@@ -65,6 +97,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 5 && (
@@ -72,6 +106,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 6 && (
@@ -79,6 +115,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 7 && (
@@ -86,6 +124,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 8 && (
@@ -93,6 +133,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 9 && (
@@ -100,6 +142,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 10 && (

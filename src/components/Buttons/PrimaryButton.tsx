@@ -3,7 +3,7 @@ import { theme } from "../../styles/themeStyles";
 
 interface Props {
   title: string;
-  product?: string | number;
+  product?: string | number | boolean;
   stateSetter?: any;
 }
 const PrimaryButton = ({ title, product, stateSetter }: Props) => {

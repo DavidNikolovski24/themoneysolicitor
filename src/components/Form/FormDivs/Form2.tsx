@@ -10,16 +10,29 @@ interface Props {
   setFormControl: any;
   enteredData: IEnteredData;
   setEnteredData: any;
+  percentageAddHandler: (number: number) => void;
+  percentageRemoveHandler: () => void;
 }
-const Form2 = ({ enteredData, setEnteredData, setFormControl }: Props) => {
+const Form2 = ({
+  enteredData,
+  setEnteredData,
+  setFormControl,
+  percentageAddHandler,
+  percentageRemoveHandler,
+}: Props) => {
   const currentYear = new Date().getFullYear();
   const last17Years = [];
 
   for (let i = 0; i <= 17; i++) {
     last17Years.push(currentYear - i);
   }
-  const clickHandler = () => {
+  const clickNextHandler = () => {
     setFormControl((prev: number) => prev + 1);
+    percentageAddHandler(5);
+  };
+  const clickPrevHandler = () => {
+    setFormControl((prev: number) => prev - 1);
+    percentageRemoveHandler();
   };
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let choicedYear = +e.target.value;
@@ -58,9 +71,9 @@ const Form2 = ({ enteredData, setEnteredData, setFormControl }: Props) => {
       <PrimaryButton
         product={enteredData.year}
         title="Next"
-        stateSetter={clickHandler}
+        stateSetter={clickNextHandler}
       />
-      <PreviousBtn formSetter={setFormControl} />
+      <PreviousBtn clickHandler={clickPrevHandler} />
     </div>
   );
 };

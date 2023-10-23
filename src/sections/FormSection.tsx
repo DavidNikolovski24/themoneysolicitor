@@ -7,7 +7,9 @@ import FormComponent from "../components/Form/FormComponent";
 import { useState } from "react";
 
 const FormSection = () => {
-  const [percentProgressBar, setPercentProgressBar] = useState<number>(0);
+  const [percentProgressBarArr, setPercentProgressBarArr] = useState<number[]>(
+    []
+  );
 
   return (
     <FormSectionStyled>
@@ -15,9 +17,9 @@ const FormSection = () => {
         <Row>
           <Col className=" col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12  text-center position-relative">
             <ProgressBarDiv>
-              <ProgressBar percentage={percentProgressBar} />
+              <ProgressBar percentageArr={percentProgressBarArr} />
             </ProgressBarDiv>
-            <FormComponent setterPercentage={setPercentProgressBar} />
+            <FormComponent setterPercentage={setPercentProgressBarArr} />
             <div style={{ paddingBottom: "20px" }}>
               <SslIcon />
             </div>

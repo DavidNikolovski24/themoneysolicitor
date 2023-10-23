@@ -7,13 +7,22 @@ interface Props {
   setFormControl: any;
   enteredData: IEnteredData;
   setEnteredData: any;
+  percentageAddHandler: (number: number) => void;
 }
 
-const Form1 = ({ enteredData, setEnteredData, setFormControl }: Props) => {
+const Form1 = ({
+  enteredData,
+  setEnteredData,
+  setFormControl,
+  percentageAddHandler,
+}: Props) => {
   const clickHandler = (title: string) => {
+    // state
     setEnteredData((prev: IEnteredData) => ({ ...prev, product: title }));
     // formControl
     setFormControl((prev: number) => prev + 1);
+    // percentage
+    percentageAddHandler(10);
   };
 
   return (

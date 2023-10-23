@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { theme } from "../../styles/themeStyles";
 
-const PreviousBtn = ({ formSetter }: { formSetter: any }) => {
+const PreviousBtn = ({ clickHandler }: { clickHandler: () => void }) => {
   return (
     <ATag
       onClick={() => {
-        formSetter((prev: number) => prev - 1);
+        clickHandler();
       }}
     >
       {"<< Previous"}
@@ -20,4 +20,5 @@ const ATag = styled.a`
   margin-top: 0;
   margin-bottom: 1rem;
   display: block;
+  cursor: pointer;
 `;
