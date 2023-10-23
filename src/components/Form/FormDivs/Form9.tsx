@@ -6,7 +6,6 @@ import { H3FormHeading } from "./Form1";
 import PrivacyLogo from "../../../assets/images/privacy.png";
 import styled from "styled-components";
 import { theme } from "../../../styles/themeStyles";
-import { useState } from "react";
 
 interface Props {
   setFormControl: any;
@@ -23,9 +22,6 @@ const Form9 = ({
   percentageAddHandler,
   setEnteredData,
 }: Props) => {
-  const [nameField, setNameField] = useState("");
-  const [lastNameField, setLastNameField] = useState("");
-
   const titlesArr = [
     "Mr.",
     "Mrs.",

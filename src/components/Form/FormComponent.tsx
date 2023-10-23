@@ -151,6 +151,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
       {formControl === 11 && (
