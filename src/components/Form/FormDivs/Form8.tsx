@@ -1,7 +1,10 @@
+import { Modal } from "react-bootstrap";
 import PreviousBtn from "../../Buttons/PreviousBtn";
 import PrimaryButton from "../../Buttons/PrimaryButton";
 import { IEnteredData } from "../FormComponent";
 import { H3FormHeading } from "./Form1";
+import { ModalBodyStyled } from "./Form6";
+import { useState } from "react";
 
 interface Props {
   setFormControl: any;
@@ -17,6 +20,8 @@ const Form8 = ({
   percentageRemoveHandler,
   percentageAddHandler,
 }: Props) => {
+  const [modalShow, setModalShow] = useState(false);
+
   const titleButtonOne = "No";
   const titleButtonTwo = "Yes";
 
@@ -26,17 +31,17 @@ const Form8 = ({
   };
 
   const clickNextHandler = (title: string) => {
+    if (title === titleButtonOne) {
+      setEnteredData((prev: IEnteredData) => ({
+        ...prev,
+        bankruptcySubject: false,
+      }));
+    } else {
+      setModalShow(true);
+      return;
+    }
     setFormControl((prev: number) => prev + 1);
     percentageAddHandler(5);
-    title === titleButtonOne
-      ? setEnteredData((prev: IEnteredData) => ({
-          ...prev,
-          bankruptcySubject: false,
-        }))
-      : setEnteredData((prev: IEnteredData) => ({
-          ...prev,
-          bankruptcySubject: true,
-        }));
   };
   return (
     <div id="form-8">
@@ -56,6 +61,23 @@ const Form8 = ({
       />
 
       <PreviousBtn clickHandler={clickPrevHandler} />
+      <Modal
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={modalShow}
+      >
+        <ModalBodyStyled>
+          <h4 className="text-center">Sorry, we cannot accept your claim</h4>
+          <PrimaryButton
+            product={enteredData.struggleInPayment}
+            title={"Back"}
+            stateSetter={() => {
+              setModalShow(false);
+            }}
+          />
+        </ModalBodyStyled>
+      </Modal>
     </div>
   );
 };

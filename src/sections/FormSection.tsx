@@ -20,7 +20,7 @@ const FormSection = () => {
               <ProgressBar percentageArr={percentProgressBarArr} />
             </ProgressBarDiv>
             <FormComponent setterPercentage={setPercentProgressBarArr} />
-            <div style={{ paddingBottom: "20px" }}>
+            <div style={{ padding: "20px 0" }}>
               <SslIcon />
             </div>
           </Col>

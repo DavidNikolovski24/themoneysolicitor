@@ -34,7 +34,7 @@ const PrimaryButtonContainer = styled.div<any>`
   box-sizing: border-box;
   width: 100%;
   cursor: pointer;
-  margin: 0 0 10px !important;
+  margin-top: 10px;
   position: relative;
   overflow: hidden;
   text-align: center;

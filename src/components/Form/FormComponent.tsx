@@ -44,6 +44,7 @@ export interface IEnteredData {
     email: string;
     phone: number;
   };
+  signature: string;
 }
 
 const FormComponent = ({ setterPercentage }: Props) => {
@@ -76,10 +77,11 @@ const FormComponent = ({ setterPercentage }: Props) => {
       email: "",
       phone: 0,
     },
+    signature: "",
   });
 
   console.log(enteredData);
-  const [formControl, setFormControl] = useState(11);
+  const [formControl, setFormControl] = useState(1);
 
   const percentageProgressBarAddHandler = (number: number) => {
     setterPercentage((prev: number[]) => [...prev, number]);

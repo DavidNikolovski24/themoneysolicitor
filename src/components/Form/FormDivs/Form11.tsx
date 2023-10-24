@@ -4,11 +4,12 @@ import PrimaryButton from "../../Buttons/PrimaryButton";
 import { IEnteredData } from "../FormComponent";
 import { H3FormHeading } from "./Form1";
 import PrivacyLogo from "../../../assets/images/privacy.png";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import SignatureCanvas from "react-signature-canvas";
 import { theme } from "../../../styles/themeStyles";
 import customMarkerURL from "../../../assets/icons/download.png";
+import { ErrorMessage } from "./Form2";
 interface Props {
   setFormControl: any;
   enteredData: IEnteredData;
@@ -25,18 +26,44 @@ const Form11 = ({
   setEnteredData,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
-
   const [canvas, setCanvas] = useState<string | undefined>(undefined);
 
+  const [errorHandler, setErrorHandler] = useState(false);
+  const [checkboxState, setCheckboxState] = useState(false);
+
   const padRef = useRef<SignatureCanvas | null>(null);
+
+  function ValidateEmail(email: string) {
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (emailRegex.test(email)) {
+      return true;
+    }
+
+    return false;
+  }
+  useEffect(() => {
+    if (canvas) {
+      setEnteredData((prev: IEnteredData) => ({ ...prev, signature: canvas }));
+    }
+  }, [canvas]);
 
   const clickPrevHandler = () => {
     setFormControl((prev: number) => prev - 1);
     percentageRemoveHandler();
   };
+
   const clickNextHandler = () => {
+    if (
+      !ValidateEmail(enteredData.contact.email) ||
+      isNaN(enteredData.contact.phone) ||
+      enteredData.contact.phone === 0
+    ) {
+      setErrorHandler(true);
+      return;
+    }
     setShowModal(true);
     percentageAddHandler(5);
+    setErrorHandler(false);
   };
 
   // Modal handlers
@@ -54,7 +81,7 @@ const Form11 = ({
     <div id="form-9">
       <H3FormHeading>What's the best way to communicate?</H3FormHeading>
 
-      <InputGroup className="mb-4 mt-4 p-0" size="lg">
+      <InputGroup className="mt-4 p-0" size="lg">
         <Form.Control
           aria-label="Large"
           aria-describedby="inputGroup-sizing-sm"
@@ -74,7 +101,10 @@ const Form11 = ({
           <img src={PrivacyLogo} alt="privacy-logo" />
         </InputGroup.Text>
       </InputGroup>
-      <InputGroup className="mb-4 mt-4 p-0" size="lg">
+      {!ValidateEmail(enteredData.contact.email) && errorHandler && (
+        <ErrorMessage>Please Enter Valid e-mail</ErrorMessage>
+      )}
+      <InputGroup className=" mt-4 p-0" size="lg">
         <Form.Control
           aria-label="Large"
           aria-describedby="inputGroup-sizing-sm"
@@ -94,7 +124,12 @@ const Form11 = ({
           <img src={PrivacyLogo} alt="privacy-logo" />
         </InputGroup.Text>
       </InputGroup>
+      {(isNaN(enteredData.contact.phone) || enteredData.contact.phone === 0) &&
+        errorHandler && (
+          <ErrorMessage>Please Enter a Valid Number</ErrorMessage>
+        )}
       {/*  */}
+
       <PrimaryButton
         product={enteredData.year}
         title="SUBMIT"
@@ -121,15 +156,20 @@ const Form11 = ({
             <LiStyled>Keep it fully contained within the box</LiStyled>
             <LiStyled>Ensure it is a true likeness of your signature</LiStyled>
           </ul>
+
           <SignatureDiv>
             <SignatureCanvas ref={padRef} />
           </SignatureDiv>
+
           <CheckBoxDiv>
             <CheckBoxStyled
               className="form-check-input"
               type="checkbox"
               id="acceptterms"
-              value="true"
+              checked={checkboxState}
+              onChange={() => {
+                setCheckboxState((prev) => !prev);
+              }}
             />
             <label htmlFor="acceptterms">
               By clicking submit you agree to us appending your electronic
@@ -139,7 +179,15 @@ const Form11 = ({
               commission if the claim is successful.
             </label>
           </CheckBoxDiv>
-
+          {checkboxState ||
+            (errorHandler && (
+              <ErrorMessage>
+                Please Tick To Show Your Authorisation For Us To Proceed
+              </ErrorMessage>
+            ))}
+          {padRef?.current?.isEmpty() && errorHandler && (
+            <ErrorMessage>Signature is required</ErrorMessage>
+          )}
           <ButtonsDiv>
             {" "}
             <Button
@@ -153,6 +201,11 @@ const Form11 = ({
               variant="success"
               size="lg"
               onClick={() => {
+                const isSignatureEmpty = padRef?.current?.isEmpty();
+                if (isSignatureEmpty || !checkboxState) {
+                  setErrorHandler(true);
+                  return;
+                }
                 handleGetCanvas();
                 setShowModal(false);
               }}
@@ -175,17 +228,19 @@ const boxShadowAnimation = keyframes`
 `;
 
 const ButtonsDiv = styled.div`
-  margin-top: 30px;
+  margin-top: 40px;
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 const SignatureDiv = styled.div`
   border: 2px solid ${theme.colors.greys.second};
-  width: 100%;
-  max-width: 500px;
+
   margin: 0 auto;
   margin-bottom: 30px;
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
 `;
 const LiStyled = styled.li`
   list-style-image: url(${customMarkerURL});
