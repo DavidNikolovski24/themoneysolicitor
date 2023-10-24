@@ -79,7 +79,7 @@ const FormComponent = ({ setterPercentage }: Props) => {
   });
 
   console.log(enteredData);
-  const [formControl, setFormControl] = useState(1);
+  const [formControl, setFormControl] = useState(11);
 
   const percentageProgressBarAddHandler = (number: number) => {
     setterPercentage((prev: number[]) => [...prev, number]);

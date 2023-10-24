@@ -5,10 +5,10 @@ import { IEnteredData } from "../FormComponent";
 import { H3FormHeading } from "./Form1";
 import PrivacyLogo from "../../../assets/images/privacy.png";
 import { useCallback, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import SignatureCanvas from "react-signature-canvas";
 import { theme } from "../../../styles/themeStyles";
-
+import customMarkerURL from "../../../assets/icons/download.png";
 interface Props {
   setFormControl: any;
   enteredData: IEnteredData;
@@ -26,7 +26,7 @@ const Form11 = ({
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
 
-  // const [canvas, setCanvas] = useState(undefined);
+  const [canvas, setCanvas] = useState<string | undefined>(undefined);
 
   const padRef = useRef<SignatureCanvas | null>(null);
 
@@ -40,13 +40,16 @@ const Form11 = ({
   };
 
   // Modal handlers
-
   const clearSignatureCanvas = useCallback(() => {
     padRef?.current?.clear();
 
-    // setCanvas(undefined);
+    setCanvas(undefined);
   }, []);
+  const handleGetCanvas = useCallback(() => {
+    const canvas = padRef?.current?.toDataURL();
 
+    setCanvas(canvas);
+  }, []);
   return (
     <div id="form-9">
       <H3FormHeading>What's the best way to communicate?</H3FormHeading>
@@ -98,6 +101,7 @@ const Form11 = ({
         stateSetter={clickNextHandler}
       />
       <PreviousBtn clickHandler={clickPrevHandler} />
+      {/* modal */}
       <Modal
         size="lg"
         show={showModal}
@@ -111,10 +115,30 @@ const Form11 = ({
             </H3FormHeading>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="p-5">
+          <ul className="mb-5">
+            <LiStyled>Sign using your finger, mouse or stylus</LiStyled>
+            <LiStyled>Keep it fully contained within the box</LiStyled>
+            <LiStyled>Ensure it is a true likeness of your signature</LiStyled>
+          </ul>
           <SignatureDiv>
             <SignatureCanvas ref={padRef} />
           </SignatureDiv>
+          <CheckBoxDiv>
+            <CheckBoxStyled
+              className="form-check-input"
+              type="checkbox"
+              id="acceptterms"
+              value="true"
+            />
+            <label htmlFor="acceptterms">
+              By clicking submit you agree to us appending your electronic
+              signature to the claim documents and confirming that you accept
+              the terms of this contract for TMS Legal to represent you in your
+              Responsible Lending claim, and that you agree to pay us 45%
+              commission if the claim is successful.
+            </label>
+          </CheckBoxDiv>
 
           <ButtonsDiv>
             {" "}
@@ -128,7 +152,10 @@ const Form11 = ({
             <Button
               variant="success"
               size="lg"
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                handleGetCanvas();
+                setShowModal(false);
+              }}
             >
               SUBMIT
             </Button>
@@ -140,7 +167,15 @@ const Form11 = ({
 };
 
 export default Form11;
+const boxShadowAnimation = keyframes`
+
+  100% {
+    box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
+  }
+`;
+
 const ButtonsDiv = styled.div`
+  margin-top: 30px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -151,4 +186,17 @@ const SignatureDiv = styled.div`
   max-width: 500px;
   margin: 0 auto;
   margin-bottom: 30px;
+`;
+const LiStyled = styled.li`
+  list-style-image: url(${customMarkerURL});
+`;
+const CheckBoxStyled = styled.input`
+  width: 35px;
+  height: 35px;
+  animation: ${boxShadowAnimation} 1s ease-in-out infinite;
+  box-shadow: 0 0 0 0 #f1ee05;
+`;
+const CheckBoxDiv = styled.div`
+  display: flex;
+  gap: 20px;
 `;
