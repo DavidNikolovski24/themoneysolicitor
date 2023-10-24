@@ -37,8 +37,7 @@ const Form10 = ({
     if (
       enteredData.address.postalCode.length === 0 ||
       enteredData.address.address1.length === 0 ||
-      enteredData.address.town.length === 0 ||
-      enteredData.address.country2.length === 0
+      enteredData.address.town.length === 0
     ) {
       setErrorHandler(true);
       return;
@@ -89,40 +88,6 @@ const Form10 = ({
       {enteredData.address.address1.length === 0 && errorHandler && (
         <ErrorMessage>Please Enter Valid Address </ErrorMessage>
       )}
-      <InputGroup className="mb-4 mt-4 p-0" size="lg">
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-          placeholder="Address Line 2"
-          value={enteredData.address.address2}
-          onChange={(e) => {
-            setEnteredData((prev: IEnteredData) => ({
-              ...prev,
-              address: {
-                ...prev.address,
-                address2: e.target.value,
-              },
-            }));
-          }}
-        />
-      </InputGroup>
-      <InputGroup className="mb-4 mt-4 p-0" size="lg">
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-          value={enteredData.address.country}
-          placeholder="Country"
-          onChange={(e) => {
-            setEnteredData((prev: IEnteredData) => ({
-              ...prev,
-              address: {
-                ...prev.address,
-                country: e.target.value,
-              },
-            }));
-          }}
-        />
-      </InputGroup>
       <InputGroup className=" mt-4 p-0" size="lg">
         <Form.Control
           aria-label="Large"
@@ -142,26 +107,6 @@ const Form10 = ({
       </InputGroup>
       {enteredData.address.town.length === 0 && errorHandler && (
         <ErrorMessage>Please Enter Valid Town </ErrorMessage>
-      )}
-      <InputGroup className=" mt-4 p-0" size="lg">
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-          placeholder="Country *"
-          value={enteredData.address.country2}
-          onChange={(e) => {
-            setEnteredData((prev: IEnteredData) => ({
-              ...prev,
-              address: {
-                ...prev.address,
-                country2: e.target.value,
-              },
-            }));
-          }}
-        />
-      </InputGroup>
-      {enteredData.address.country2.length === 0 && errorHandler && (
-        <ErrorMessage>Please Enter Valid Country </ErrorMessage>
       )}
       <PrimaryButton
         product={enteredData.filledClaimBefore}
@@ -250,40 +195,7 @@ const Form10 = ({
           {enteredData.address.address1.length === 0 && errorHandler && (
             <ErrorMessage>Please Enter Valid Address </ErrorMessage>
           )}
-          <InputGroup className="mb-4 mt-4 p-0" size="lg">
-            <Form.Control
-              aria-label="Large"
-              aria-describedby="inputGroup-sizing-sm"
-              placeholder="Address Line 2"
-              value={enteredData.address.address2}
-              onChange={(e) => {
-                setEnteredData((prev: IEnteredData) => ({
-                  ...prev,
-                  address: {
-                    ...prev.address,
-                    address2: e.target.value,
-                  },
-                }));
-              }}
-            />
-          </InputGroup>
-          <InputGroup className="mb-4 mt-4 p-0" size="lg">
-            <Form.Control
-              aria-label="Large"
-              aria-describedby="inputGroup-sizing-sm"
-              value={enteredData.address.country}
-              placeholder="Country"
-              onChange={(e) => {
-                setEnteredData((prev: IEnteredData) => ({
-                  ...prev,
-                  address: {
-                    ...prev.address,
-                    country: e.target.value,
-                  },
-                }));
-              }}
-            />
-          </InputGroup>
+
           <InputGroup className=" mt-4 p-0" size="lg">
             <Form.Control
               aria-label="Large"
@@ -304,26 +216,6 @@ const Form10 = ({
           {enteredData.address.town.length === 0 && errorHandler && (
             <ErrorMessage>Please Enter Valid Town </ErrorMessage>
           )}
-          <InputGroup className=" mt-4 p-0" size="lg">
-            <Form.Control
-              aria-label="Large"
-              aria-describedby="inputGroup-sizing-sm"
-              placeholder="Country *"
-              value={enteredData.address.country2}
-              onChange={(e) => {
-                setEnteredData((prev: IEnteredData) => ({
-                  ...prev,
-                  address: {
-                    ...prev.address,
-                    country2: e.target.value,
-                  },
-                }));
-              }}
-            />
-          </InputGroup>
-          {enteredData.address.country2.length === 0 && errorHandler && (
-            <ErrorMessage>Please Enter Valid Country </ErrorMessage>
-          )}
 
           <PrimaryButton
             product={enteredData.struggleInPayment}
@@ -332,8 +224,7 @@ const Form10 = ({
               if (
                 enteredData.address.postalCode.length === 0 ||
                 enteredData.address.address1.length === 0 ||
-                enteredData.address.town.length === 0 ||
-                enteredData.address.country2.length === 0
+                enteredData.address.town.length === 0
               ) {
                 setErrorHandler(true);
                 return;
