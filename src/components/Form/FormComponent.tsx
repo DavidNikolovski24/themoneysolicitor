@@ -32,6 +32,18 @@ export interface IEnteredData {
     mounthOfBirth: number;
     yearOfBirth: number;
   };
+  address: {
+    postalCode: string;
+    address1: string;
+    address2: string;
+    country: string;
+    town: string;
+    country2: string;
+  };
+  contact: {
+    email: string;
+    phone: number;
+  };
 }
 
 const FormComponent = ({ setterPercentage }: Props) => {
@@ -51,6 +63,18 @@ const FormComponent = ({ setterPercentage }: Props) => {
       dayOfBirth: 0,
       mounthOfBirth: 0,
       yearOfBirth: 0,
+    },
+    address: {
+      postalCode: "",
+      address1: "",
+      address2: "",
+      country: "",
+      town: "",
+      country2: "",
+    },
+    contact: {
+      email: "",
+      phone: 0,
     },
   });
 
@@ -160,6 +184,8 @@ const FormComponent = ({ setterPercentage }: Props) => {
           setFormControl={setFormControl}
           enteredData={enteredData}
           setEnteredData={setEnteredData}
+          percentageAddHandler={percentageProgressBarAddHandler}
+          percentageRemoveHandler={percentageProgressBarRemoveHandler}
         />
       )}
     </FormStyled>
