@@ -10,6 +10,7 @@ import SignatureCanvas from "react-signature-canvas";
 import { theme } from "../../../styles/themeStyles";
 import customMarkerURL from "../../../assets/icons/download.png";
 import { ErrorMessage } from "./Form2";
+import { useNavigate } from "react-router";
 interface Props {
   setFormControl: any;
   enteredData: IEnteredData;
@@ -25,6 +26,7 @@ const Form11 = ({
   percentageAddHandler,
   setEnteredData,
 }: Props) => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [canvas, setCanvas] = useState<string | undefined>(undefined);
 
@@ -208,6 +210,7 @@ const Form11 = ({
                 }
                 handleGetCanvas();
                 setShowModal(false);
+                navigate("/thankyou");
               }}
             >
               SUBMIT

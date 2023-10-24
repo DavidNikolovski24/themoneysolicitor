@@ -2,22 +2,26 @@ import { Col, Container, Row } from "react-bootstrap";
 import styled from "styled-components";
 import LogoImg from "../assets/images/logo.png";
 import { theme } from "../styles/themeStyles";
-const Header = () => {
+const Header = ({ headings }: { headings: boolean }) => {
   return (
     <HeaderStyled>
       <Container>
         <Row>
           <Col>
-            <a href="#">
+            <a href="/">
               <img src={LogoImg} alt="" />
             </a>
-            <H1Styled>
-              Taken Out Repeated High-Cost Credit from Vanquis?
-            </H1Styled>
-            <H2Styled>
-              Starting your claim is easy and 100% online. You could recover
-              money back if you were mis-sold
-            </H2Styled>
+            {headings && (
+              <>
+                <H1Styled>
+                  Taken Out Repeated High-Cost Credit from Vanquis?
+                </H1Styled>
+                <H2Styled>
+                  Starting your claim is easy and 100% online. You could recover
+                  money back if you were mis-sold
+                </H2Styled>
+              </>
+            )}
           </Col>
         </Row>
       </Container>
