@@ -35,10 +35,8 @@ export interface IEnteredData {
   address: {
     postalCode: string;
     address1: string;
-    address2: string;
-    country: string;
+
     town: string;
-    country2: string;
   };
   contact: {
     email: string;
@@ -68,10 +66,7 @@ const FormComponent = ({ setterPercentage }: Props) => {
     address: {
       postalCode: "",
       address1: "",
-      address2: "",
-      country: "",
       town: "",
-      country2: "",
     },
     contact: {
       email: "",
@@ -81,7 +76,7 @@ const FormComponent = ({ setterPercentage }: Props) => {
   });
 
   console.log(enteredData);
-  const [formControl, setFormControl] = useState(10);
+  const [formControl, setFormControl] = useState(1);
 
   const percentageProgressBarAddHandler = (number: number) => {
     setterPercentage((prev: number[]) => [...prev, number]);
